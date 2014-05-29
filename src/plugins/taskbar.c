@@ -296,7 +296,7 @@ static void recompute_group_visibility_on_current_desktop(TaskbarPlugin * tb)
 static void task_draw_label(Task * tk)
 {
     TaskClass * tc = tk->res_class;
-    gboolean bold_style = (((tk->entered_state) || (tk->flash_state)) && (tk->tb->flat_button));
+    gboolean bold_style = (((tk->entered_state) || (tk->flash_state) || (tk->focused)) && (tk->tb->flat_button));
     char *label;
 
     if ((tk->tb->grouped_tasks) && (tc != NULL) && (tc->visible_task == tk)
@@ -408,8 +408,8 @@ static void task_set_names(Task * tk, Atom source)
     if (name != NULL)
     {
         task_free_names(tk);
-        tk->name = g_strdup(name);
-        tk->name_iconified = g_strdup_printf("[%s]", name);
+        tk->name = g_strdup_printf("%d: %s", tk->desktop+1,name);
+        tk->name_iconified = g_strdup_printf("%d: %s", tk->desktop+1,name);
         g_free(name);
 
         /* Redraw the button. */
