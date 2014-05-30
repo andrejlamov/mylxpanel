@@ -1565,13 +1565,7 @@ static void taskbar_property_notify_event(TaskbarPlugin *tb, XEvent *ev)
                 {
                     /* Window changed desktop. */
                     tk->desktop = get_net_wm_desktop(win);
-
-                    char * name = get_utf8_property(tk->win,  a_NET_WM_NAME);
-                    if (name != NULL)
-                      tk->name_source = a_NET_WM_NAME;
-                    tk->name = g_strdup_printf("%d: %s", tk->desktop+1,name);
-                    tk->name_iconified = g_strdup_printf("%d: %s", tk->desktop+1,name);
-                    g_free(name);
+                    task_set_names(tk, a_NET_WM_NAME);
 
                     taskbar_redraw(tb);
                 }
