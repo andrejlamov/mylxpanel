@@ -205,7 +205,7 @@ static void set_timer_on_task(Task * tk)
 /* Determine if a task is visible considering only its desktop placement. */
 static gboolean task_is_visible_on_current_desktop(TaskbarPlugin * tb, Task * tk)
 {
-    return ((tk->desktop == ALL_WORKSPACES) || (tk->desktop == tb->current_desktop) || (tb->show_all_desks));
+  return ((tk->desktop == ALL_WORKSPACES) || (tk->desktop == tb->current_desktop)); // || (tb->show_all_desks));
 }
 
 /* Recompute the visible task for a class when the class membership changes.
@@ -408,8 +408,8 @@ static void task_set_names(Task * tk, Atom source)
     if (name != NULL)
     {
         task_free_names(tk);
-        tk->name = g_strdup_printf("%d: %s", tk->desktop+1,name);
-        tk->name_iconified = g_strdup_printf("%d: %s", tk->desktop+1,name);
+        tk->name = g_strdup_printf("%s", name);
+        tk->name_iconified = g_strdup_printf("%s", name);
         g_free(name);
 
         /* Redraw the button. */
